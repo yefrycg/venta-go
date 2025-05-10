@@ -41,7 +41,7 @@
             $ins_venta = new ventaControlador();
             $total_ventas = $ins_venta->obtener_cantidad_ventas_controlador();
         ?>
-        <!-- Tarjeta Ventas -->
+        <!-- Tarjeta Ventas 
         <div class="col-xl-3 col-md-6 mb-4">
             <a href="<?php echo SERVER_URL; ?>ventas/" style="text-decoration: none;">
                 <div class="card border-left-secondary shadow h-100 py-2">
@@ -59,7 +59,7 @@
                     </div>
                 </div>
             </a>
-        </div>
+        </div> -->
 
         <?php 
         if ($_SESSION['rol_usuario'] == "Administrador") {
