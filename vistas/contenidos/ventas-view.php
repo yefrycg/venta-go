@@ -4,14 +4,6 @@
     <!-- Cabecera de página -->
     <div class="d-flex align-items-center mb-4">
         <h1 class="h3 text-gray-800 mr-3">Ventas</h1>
-
-        <!-- Boton añadir -->
-        <a href="<?php echo SERVER_URL; ?>venta-new/" class="btn btn-primary btn-icon-split">
-            <span class="icon text-white-50">
-                <i class="fas fa-plus"></i>
-            </span>
-            <span class="text">Añadir</span>
-        </a>
     </div>
 
     <!-- Filtro de Ventas -->

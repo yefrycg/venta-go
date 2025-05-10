@@ -9,14 +9,6 @@ if ($_SESSION['rol_usuario'] != "Administrador") {
     <div class="card shadow mb-4 mx-auto" style="max-width: 600px;">
         <div class="card-header py-3 d-flex justify-content-between align-items-center">
             <h6 class="m-0 font-weight-bold text-primary">Registrar Proveedor</h6>
-
-            <!-- Boton regresar -->
-            <a href="<?php echo SERVER_URL; ?>proveedores/" class="btn btn-secondary btn-icon-split">
-                <span class="icon text-white-50">
-                    <i class="fas fa-arrow-right"></i>
-                </span>
-                <span class="text">Regresar</span>
-            </a>
         </div>
 
         <div class="card-body">
