@@ -34,12 +34,11 @@
             </div>
         </div>
     </div>
-
-    <!-- Footer -->
-    <footer class="bg-primary text-white text-center py-3 mt-auto">
-        <p class="mb-0">© 2024 VentaGo. Todos los derechos reservados.</p>
-    </footer>
 </div>
+<!-- Footer -->
+<footer class="bg-primary text-white text-center py-3 mt-auto width-100vh">
+    <p class="mb-0">© 2024 VentaGo. Todos los derechos reservados.</p>
+</footer>
 
 <?php
     if (isset($_POST['nombre']) && isset($_POST['contrasena'])) {
