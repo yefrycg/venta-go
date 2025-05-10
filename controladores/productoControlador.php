@@ -318,12 +318,11 @@
             }
             
             $nombre = $_POST['nombre_actualizar'];
-            $unidad_medida = $_POST['unidad_medida_actualizar'];
             $precio_actual = $_POST['precio_actualizar'];
             $stock_actual = $_POST['stock_actualizar'];
 
             //---------- Comprobar campos vacios ------------//
-            if ($nombre == "" || $unidad_medida == "" || $precio_actual == 0 || $stock_actual == 0) {
+            if ($nombre == "" || $precio_actual == 0 || $stock_actual == 0) {
                 $alerta = [
                     "Alerta" => "simple",
                     "Titulo" => "Ocurrió un error inesperado",
@@ -338,8 +337,7 @@
                 "Codigo" => $codigo,
                 "Nombre" => $nombre,
                 "Stock" => $stock_actual,
-                "Precio" => $precio_actual,
-                "Unidad_medida" => $unidad_medida
+                "Precio" => $precio_actual
             ];
 
             $actualizar_producto = productoModelo::actualizar_producto_modelo($datos);

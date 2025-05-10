@@ -29,6 +29,19 @@
             exit();
             }
 
+            //---------- Comprobar si el proveedor ya existe ------------//
+            $check_proveedor = mainModel::ejecutar_consulta_simple("SELECT id FROM proveedor WHERE nombre = '$nombre' AND nit_negocio = $nit_negocio");
+            if ($check_proveedor->rowCount() > 0) {
+                $alerta = [
+                "Alerta"=>"simple",
+                "Titulo"=>"Proveedor ya registrado",
+                "Texto"=>"El proveedor que intenta registrar ya existe en el sistema",
+                "Tipo"=>"error"
+                ];
+                echo json_encode($alerta);
+                exit();
+            }
+            
             $datos_proveedor = [
             "Nombre"=>$nombre,
             "Contacto"=>$contacto,

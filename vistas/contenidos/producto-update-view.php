@@ -82,7 +82,7 @@ if ($_SESSION['rol_usuario'] != "Administrador") {
                 <!-- Unidad de medida -->
                 <div class="mb-3">
                     <label for="unidad_medida_actualizar" class="form-label">Unidad de Medida</label>
-                    <select name="unidad_medida_actualizar" id="unidad_medida_actualizar" class="form-control" required>
+                    <select name="unidad_medida_actualizar" id="unidad_medida_actualizar" class="form-control" disabled>
                         <option value="">Seleccione</option>
                         <option value="Unidad" <?php echo ($campos['unidad'] == 'Unidad') ? 'selected' : ''; ?> >Unidad</option>
                         <option value="Kilogramo" <?php echo ($campos['unidad'] == 'Kilogramo') ? 'selected' : ''; ?> >Kilogramo</option>

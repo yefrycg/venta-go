@@ -23,7 +23,7 @@
         
         //---------- Actualizar un producto ------------//
         if (isset($_POST['codigo_actualizar']) && isset($_POST['nombre_actualizar'])
-            && isset($_POST['unidad_medida_actualizar']) && isset($_POST['precio_actualizar']) && isset($_POST['stock_actualizar'])) {
+            && isset($_POST['precio_actualizar']) && isset($_POST['stock_actualizar'])) {
             echo $ins_producto->actualizar_producto_controlador();
         }
     } else {

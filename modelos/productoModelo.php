@@ -75,13 +75,11 @@
             $sql = mainModel::conectar()->prepare("UPDATE producto SET
             nombre = :Nombre,
             stock_actual = :Stock,
-            precio_actual = :Precio,
-            unidad = :Unidad_medida
+            precio_actual = :Precio
             WHERE id = :Codigo");
             $sql->bindParam(":Stock", $datos['Stock']);
             $sql->bindParam(":Precio", $datos['Precio']);
             $sql->bindParam(":Nombre", $datos['Nombre']);
-            $sql->bindParam(":Unidad_medida", $datos['Unidad_medida']);
             $sql->bindParam(":Codigo", $datos['Codigo']);
 
             $sql->execute();
