@@ -3,14 +3,6 @@
 ## Descripción
 VentaGo es un sistema de punto de venta (POS) basado en la web, diseñado para gestionar ventas, compras, inventario (productos), categorías, proveedores y usuarios para negocios.
 
-## Tecnologías Utilizadas
-*   PHP
-*   Apache
-*   MySQL
-*   HTML5
-*   CSS3 (con Bootstrap)
-*   JavaScript (con uso de AJAX y SweetAlert2 para notificaciones)
-
 ## Prerrequisitos
 *   Un servidor web local como XAMPP.
     *   Apache (con `mod_rewrite` habilitado para URLs amigables, debido al uso de `.htaccess`).
