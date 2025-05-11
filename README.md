@@ -4,7 +4,7 @@
 VentaGo es un sistema de punto de venta (POS) basado en la web, diseñado para gestionar ventas, compras, inventario (productos), categorías, proveedores y usuarios para negocios.
 
 ## Tecnologías Utilizadas
-*   PHP````
+*   PHP
 *   MariaDB
 *   HTML5
 *   CSS3 (con Bootstrap)
@@ -79,34 +79,6 @@ VentaGo es un sistema de punto de venta (POS) basado en la web, diseñado para g
 3.  **Primeros Pasos:**
     *   La aplicación debería redirigirte a la página de inicio de sesión ([vistas/contenidos/login-view.php](vistas/contenidos/login-view.php)).
     *   Si es la primera vez y no tienes un negocio registrado, utiliza la opción "Regístrate aquí" que te llevará a la página de registro de negocio ([vistas/contenidos/registro-negocio-view.php](vistas/contenidos/registro-negocio-view.php)). Esto creará el negocio y un usuario administrador inicial.
-
-## Estructura del Proyecto
-```
-.
-├── .htaccess           # Reglas de reescritura de URL para Apache (URLs amigables)
-├── index.php           # Punto de entrada principal de la aplicación
-├── ajax/               # Scripts PHP para manejar peticiones AJAX
-│   ├── categoriaAjax.php
-│   ├── ...
-│   └── ventaAjax.php
-├── config/             # Archivos de configuración
-│   ├── APP.php         # Configuración general de la aplicación (URL, nombre de la compañía, etc.)
-│   └── SERVER.php      # Configuración de la conexión a la base de datos
-├── controladores/      # Lógica de negocio, intermediarios entre modelos y vistas
-│   ├── alertaControlador.php
-│   ├── ...
-│   └── vistasControlador.php # Maneja qué vista cargar
-├── modelos/            # Clases para interactuar con la base de datos (consultas SQL)
-│   ├── alertaModelo.php
-│   ├── ...
-│   └── vistasModelo.php    # Define las vistas permitidas
-└── vistas/             # Capa de presentación (archivos HTML, CSS, JS)
-    ├── contenidos/     # Archivos PHP que contienen el HTML específico de cada página/módulo
-    ├── css/            # (Directorio estándar para CSS, aunque no se listaron archivos específicos)
-    ├── include/        # Fragmentos de HTML reutilizables (ej. logout, scripts, links, sidebar, topbar, footer)
-    ├── js/             # Archivos JavaScript personalizados (ej. alertas.js)
-    └── plantilla.php   # Plantilla HTML principal que envuelve los contenidos
-```
 
 ## Notas Adicionales
 *   El proyecto utiliza sesiones de PHP para la autenticación y gestión de usuarios (`session_start(['name' => 'VENTAGO']);`).
