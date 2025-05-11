@@ -79,11 +79,3 @@ VentaGo es un sistema de punto de venta (POS) basado en la web, diseñado para g
 3.  **Primeros Pasos:**
     *   La aplicación debería redirigirte a la página de inicio de sesión ([vistas/contenidos/login-view.php](vistas/contenidos/login-view.php)).
     *   Si es la primera vez y no tienes un negocio registrado, utiliza la opción "Regístrate aquí" que te llevará a la página de registro de negocio ([vistas/contenidos/registro-negocio-view.php](vistas/contenidos/registro-negocio-view.php)). Esto creará el negocio y un usuario administrador inicial.
-
-## Notas Adicionales
-*   El proyecto utiliza sesiones de PHP para la autenticación y gestión de usuarios (`session_start(['name' => 'VENTAGO']);`).
-*   Las alertas y confirmaciones al usuario se manejan con la librería SweetAlert2, como se observa en [vistas/js/alertas.js](vistas/js/alertas.js).
-*   Las interacciones dinámicas (como agregar productos a una venta, finalizar compras, búsquedas filtradas) se realizan mediante AJAX, lo que mejora la experiencia del usuario al evitar recargas completas de página.
-*   El enrutamiento se gestiona a través de [index.php](index.php) y el [`vistasControlador`](controladores/vistasControlador.php), que interpreta el parámetro `views` de la URL (ej. `http://localhost/venta-go/productos/`).
-*   El archivo [.htaccess](.htaccess) es fundamental para que las URLs amigables funcionen. Asegúrate de que `AllowOverride All` esté configurado en la directiva `<Directory>` de Apache para el directorio de tu proyecto y que `mod_rewrite` esté habilitado.
-```# VentaGo - Sistema de Punto de Venta
