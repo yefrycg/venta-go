@@ -17,7 +17,7 @@ VentaGo es un sistema de punto de venta (POS) basado en la web, diseñado para g
     *   MariaDB.
 *   Un navegador web moderno (Chrome, Firefox, Edge, etc.).
 *   Acceso a un gestor de bases de datos como phpMyAdmin (incluido en XAMPP).
-*   **Archivo de Base de Datos:** El archivo `database.sql` (o el nombre que le hayas asignado) que contiene la estructura y, opcionalmente, datos iniciales de la base de datos. Este archivo se encuentra en la raíz del proyecto y se descarga junto con el resto del código.
+*   **Archivo de Base de Datos:** El archivo `dbventago.sql` que contiene la estructura y, opcionalmente, datos iniciales de la base de datos. Este archivo se encuentra en la raíz del proyecto y se descarga junto con el resto del código.
 
 ## Instalación y Configuración
 
@@ -31,12 +31,10 @@ VentaGo es un sistema de punto de venta (POS) basado en la web, diseñado para g
     *   Abre phpMyAdmin (accesible en `http://localhost/phpmyadmin`).
     *   Crea una nueva base de datos. Según la configuración del proyecto ([config/SERVER.php](config/SERVER.php)), el nombre es `dbventago`.
         *   Nombre de la base de datos: `dbventago`
-        *   Cotejamiento recomendado: `utf8mb4_unicode_ci` o `utf8_general_ci`.
     *   **Importar la estructura de la base de datos:**
         *   Selecciona la base de datos recién creada (`dbventago`) en la barra lateral de phpMyAdmin.
         *   Ve a la pestaña "Importar".
-        *   Haz clic en "Seleccionar archivo" y busca tu archivo `.sql` (ej. `database.sql`).
-        *   Asegúrate de que el juego de caracteres del archivo esté configurado correctamente (generalmente `utf-8`).
+        *   Haz clic en "Seleccionar archivo" y busca tu archivo `.sql` (`dbventago.sql`).
         *   Haz clic en el botón "Continuar" (o "Importar") en la parte inferior de la página. Esto creará todas las tablas y, si el archivo `.sql` los incluye, insertará los datos iniciales.
 
 3.  **Configurar Conexión a la Base de Datos:**
@@ -65,7 +63,6 @@ VentaGo es un sistema de punto de venta (POS) basado en la web, diseñado para g
             const COMPANY = "Nombre de tu Empresa"; // Nombre que aparecerá en el título y otros lugares
             // ... otras constantes que pueda tener el archivo ...
         ```
-    *   Si el archivo `APP.php` no existe o está incompleto, deberás crearlo o completarlo con al menos estas dos constantes.
 
 ## Ejecución del Proyecto
 
@@ -74,7 +71,7 @@ VentaGo es un sistema de punto de venta (POS) basado en la web, diseñado para g
 
 2.  **Acceder a la Aplicación:**
     *   Abre tu navegador web y navega a la URL que configuraste en `SERVER_URL` en [config/APP.php](config/APP.php). Por lo general, será:
-        `http://localhost/venta-go/` (o la ruta que hayas definido).
+        `http://localhost/venta-go/`.
 
 3.  **Primeros Pasos:**
     *   La aplicación debería redirigirte a la página de inicio de sesión ([vistas/contenidos/login-view.php](vistas/contenidos/login-view.php)).
