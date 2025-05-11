@@ -5,7 +5,8 @@ VentaGo es un sistema de punto de venta (POS) basado en la web, diseñado para g
 
 ## Tecnologías Utilizadas
 *   PHP
-*   MariaDB
+*   Apache
+*   MySQL
 *   HTML5
 *   CSS3 (con Bootstrap)
 *   JavaScript (con uso de AJAX y SweetAlert2 para notificaciones)
@@ -14,8 +15,7 @@ VentaGo es un sistema de punto de venta (POS) basado en la web, diseñado para g
 *   Un servidor web local como XAMPP.
     *   Apache (con `mod_rewrite` habilitado para URLs amigables, debido al uso de `.htaccess`).
     *   PHP (se recomienda versión 7.x o superior).
-    *   MariaDB.
-*   Un navegador web moderno (Chrome, Firefox, Edge, etc.).
+    *   MySQL.
 *   Acceso a un gestor de bases de datos como phpMyAdmin (incluido en XAMPP).
 *   **Archivo de Base de Datos:** El archivo `dbventago.sql` que contiene la estructura y, opcionalmente, datos iniciales de la base de datos. Este archivo se encuentra en la raíz del proyecto y se descarga junto con el resto del código.
 
