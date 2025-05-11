@@ -5,16 +5,16 @@ VentaGo es un sistema de punto de venta (POS) basado en la web, diseñado para g
 
 ## Tecnologías Utilizadas
 *   PHP
-*   MySQL
+*   MariaDB
 *   HTML5
-*   CSS3 (probablemente con Bootstrap, inferido por clases como `form-control`, `btn`, `card`, `shadow`, `selectpicker`)
-*   JavaScript (ECMAScript, con uso extensivo de AJAX y SweetAlert2 para notificaciones)
+*   CSS3 (con Bootstrap)
+*   JavaScript (con uso de AJAX y SweetAlert2 para notificaciones)
 
 ## Prerrequisitos
-*   Un servidor web local como XAMPP, WAMP o MAMP.
+*   Un servidor web local como XAMPP.
     *   Apache (con `mod_rewrite` habilitado para URLs amigables, debido al uso de `.htaccess`).
     *   PHP (se recomienda versión 7.x o superior).
-    *   MySQL o MariaDB.
+    *   MariaDB.
 *   Un navegador web moderno (Chrome, Firefox, Edge, etc.).
 *   Acceso a un gestor de bases de datos como phpMyAdmin (incluido en XAMPP).
 
@@ -23,25 +23,20 @@ VentaGo es un sistema de punto de venta (POS) basado en la web, diseñado para g
 1.  **Clonar o Descargar el Proyecto:**
     *   Si tienes Git, clona el repositorio.
     *   Si no, descarga el código fuente del proyecto como un archivo ZIP y extráelo.
-    *   Coloca la carpeta del proyecto (ej. `venta-go`) en el directorio raíz de tu servidor web (ej. `htdocs/` para XAMPP, `www/` para WAMP).
+    *   Coloca la carpeta del proyecto (`venta-go`) en el directorio raíz de tu servidor web (`htdocs/` para XAMPP).
 
 2.  **Configurar la Base de Datos:**
-    *   Inicia los módulos Apache y MySQL desde el panel de control de tu servidor web (ej. XAMPP Control Panel).
-    *   Abre phpMyAdmin (generalmente accesible en `http://localhost/phpmyadmin`).
+    *   Inicia los módulos Apache y MySQL desde el panel de control de tu servidor web (XAMPP Control Panel).
+    *   Abre phpMyAdmin (accesible en `http://localhost/phpmyadmin`).
     *   Crea una nueva base de datos. Según la configuración del proyecto ([config/SERVER.php](config/SERVER.php)), el nombre es `dbventago`.
         *   Nombre de la base de datos: `dbventago`
         *   Cotejamiento recomendado: `utf8mb4_unicode_ci` o `utf8_general_ci`.
-    *   **Crear las tablas:** No se proporciona un archivo `.sql` con la estructura de la base de datos. Deberás crear las tablas y sus columnas manualmente basándote en el código de los modelos (archivos en la carpeta `modelos/`). Las tablas principales parecen ser:
-        *   `negocio`
-        *   `usuario`
-        *   `categoria`
-        *   `producto`
-        *   `proveedor`
-        *   `compra`
-        *   `compra_producto` (tabla de detalle para compras)
-        *   `venta`
-        *   `venta_producto` (tabla de detalle para ventas)
-        *   `alerta` (si es una tabla para notificaciones o configuraciones de stock mínimo)
+    *   **Importar la estructura de la base de datos:**
+        *   Selecciona la base de datos recién creada (`dbventago`) en la barra lateral de phpMyAdmin.
+        *   Ve a la pestaña "Importar".
+        *   Haz clic en "Seleccionar archivo" y busca tu archivo `.sql` (ej. `database.sql`).
+        *   Asegúrate de que el juego de caracteres del archivo esté configurado correctamente (generalmente `utf-8`).
+        *   Haz clic en el botón "Continuar" (o "Importar") en la parte inferior de la página. Esto creará todas las tablas y, si el archivo `.sql` los incluye, insertará los datos iniciales.
 
 3.  **Configurar Conexión a la Base de Datos:**
     *   Abre el archivo [config/SERVER.php](config/SERVER.php).
@@ -74,7 +69,7 @@ VentaGo es un sistema de punto de venta (POS) basado en la web, diseñado para g
 ## Ejecución del Proyecto
 
 1.  **Iniciar Servidor Web:**
-    *   Asegúrate de que los módulos Apache y MySQL estén en ejecución desde el panel de control de tu servidor web (ej. XAMPP Control Panel).
+    *   Asegúrate de que los módulos Apache y MySQL estén en ejecución desde el panel de control de tu servidor web (XAMPP Control Panel).
 
 2.  **Acceder a la Aplicación:**
     *   Abre tu navegador web y navega a la URL que configuraste en `SERVER_URL` en [config/APP.php](config/APP.php). Por lo general, será:
