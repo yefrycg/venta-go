@@ -8,7 +8,7 @@
                             "categorias", "categoria-new", "categoria-update",
                             "productos", "producto-new", "producto-update",
                             "proveedores", "proveedor-new", "proveedor-update",
-                            "usuarios", "usuario-new", "usuario-update"];
+                            "usuarios", "usuario-new", "usuario-update","reportes"];
             if (in_array($vistas, $whiteList)) {
                 if (is_file("./vistas/contenidos/".$vistas."-view.php")) {
                     $contenido = "./vistas/contenidos/".$vistas."-view.php";

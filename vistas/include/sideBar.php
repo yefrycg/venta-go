@@ -40,7 +40,7 @@
     </li>
     <?php } ?>
 
-    <!-- Nav Item - Ventas Collapse Menu
+    <!-- Nav Item - Ventas Collapse Menu -->
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
             aria-expanded="true" aria-controls="collapseUtilities">
@@ -55,7 +55,7 @@
                 <a class="collapse-item" href="<?= SERVER_URL; ?>ventas/">Listado de Ventas</a>
             </div>
         </div>
-    </li>-->
+    </li>
 
     <?php if ($_SESSION['rol_usuario'] == "Administrador") { ?>
     <!-- Nav Item - Categorias collapse Menu -->
@@ -121,8 +121,23 @@
             </div>
         </div>
     </li>
-    <?php } ?>
 
+    <!-- Nav Item - Reportes collapse Menu-->
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseReportes"
+            aria-expanded="true" aria-controls="collapseReportes">
+            <i class="fas fa-fw fa-chart-pie"></i>
+            <span>Reportes</span>
+        </a>
+        <div id="collapseReportes" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Acciones:</h6>
+                <a class="collapse-item" href="<?= SERVER_URL; ?>reportes/">Generar Reporte</a>
+            </div>
+        </div>
+    </li>
+    <?php } ?>
+    
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">
 

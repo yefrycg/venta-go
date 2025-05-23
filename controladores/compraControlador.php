@@ -208,11 +208,8 @@
         }
 
         //---------- Ver detalles de compra -------------//
-        public function ver_detalle_compra_controlador() { // Changed: Removed parameter, will get from POST
-            // Check if it's an AJAX request and ID is provided
-            if (isset($_POST['id_compra'])) {
-                $id_compra = $_POST['id_compra']; // Assuming you might encrypt IDs
-    
+        public function ver_detalle_compra_controlador($id_compra) { // Changed: Removed parameter, will get from POST
+            
                 // Fetch data using the model
                 $datos_compra = compraModelo::ver_detalle_compra_modelo($id_compra);
     
@@ -233,14 +230,6 @@
                 header('Content-Type: application/json');
                 echo json_encode($response);
                 exit(); // Stop script execution after sending JSON
-            } else {
-                // Handle non-AJAX or missing ID case if necessary
-                // For example, redirect or show an error page
-                // Or return a simple error JSON
-                header('Content-Type: application/json');
-                echo json_encode(['status' => 'error', 'message' => 'ID de compra no proporcionado.']);
-                exit();
-            }
         } // Fin
         
         //---------- Controlador para obtener compras -------------//

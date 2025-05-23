@@ -24,8 +24,8 @@
                                 if ($productos) {
                                     echo '<option value="">Seleccione</option>';
                                     foreach ($productos as $producto) {
-                                        echo '<option value="' . $producto->codigo . '" 
-                                                    data-unidad="' . $producto->unidad_medida . '" 
+                                        echo '<option value="' . $producto->id . '" 
+                                                    data-unidad="' . $producto->unidad . '" 
                                                     data-stock="' . $producto->stock_actual . '" 
                                                     data-precio="' . $producto->precio_actual . '">
                                                     ' . $producto->nombre . '
@@ -63,12 +63,6 @@
                         <input type="number" name="cantidad" id="cantidad" class="form-control" min="0" step="0.00" value="0.00" required>
                     </div>
 
-                    <!-- Descuento -->
-                    <div class="col-6 mb-4">
-                        <label for="descuento">Descuento:</label>
-                        <input type="number" name="descuento" id="descuento" class="form-control" min="0" step="0.00" value="0.00" required>
-                    </div>
-
                     <!-----botón para agregar--->
                     <div class="col-12 mb-4 text-end">
                         <button id="btn_agregar" class="btn btn-primary" type="button">Agregar</button>
@@ -84,7 +78,6 @@
                                         <th class="text-white">Producto</th>
                                         <th class="text-white">Cantidad</th>
                                         <th class="text-white">Precio venta</th>
-                                        <th class="text-white">Descuento</th>
                                         <th class="text-white">Subtotal</th>
                                         <th></th>
                                     </tr>
@@ -97,20 +90,9 @@
                                         <td></td>
                                         <td></td>
                                         <td></td>
-                                        <td></td>
                                     </tr>
                                 </tbody>
                                 <tfoot>
-                                    <tr>
-                                        <th></th>
-                                        <th colspan="4">Sumas</th>
-                                        <th colspan="2"><span id="sumas">0</span></th>
-                                    </tr>
-                                    <tr>
-                                        <th></th>
-                                        <th colspan="4">IGV %</th>
-                                        <th colspan="2"><span id="igv">0</span></th>
-                                    </tr>
                                     <tr>
                                         <th></th>
                                         <th colspan="4">Total</th>
@@ -136,21 +118,30 @@
                     
                     <input type="hidden" name="vendedor_id" id="vendedor_id_hidden">
                     <input type="hidden" name="cliente_id" id="cliente_id_hidden">
-                    <input type="hidden" name="tipo_venta" id="tipo_venta_hidden">
-                    <input type="hidden" name="direccion_entrega" id="direccion_entrega_hidden">
-                    <input type="hidden" name="comprobante_id" id="comprobante_id_hidden">
+                    <input type="hidden" name="nombre" id="nombre_hidden">
                     <input type="hidden" name="detalles" id="detalles_hidden">
                     <input type="hidden" name="total" id="total_hidden">
+
+                    <!-- Cliente id input -->
+                    <div class="col-sm-6 mb-4">
+                        <label for="cliente_id">Cedula del cliente:</label>
+                        <input type="number" name="cliente_id" id="cliente_id" class="form-control border-success" value="..." required>
+                    </div>
+                    
+                    <!-- Cliente nombre input -->
+                    <div class="col-sm-6 mb-4">
+                        <label for="nombre">Nombre:</label>
+                        <input type="text" name="nombre" id="nombre" class="form-control border-success" placeholder="..." required>
+                    </div>
 
                     <!-- Fecha -->
                     <div class="col-sm-6 mb-4">
                         <label for="fecha">Fecha:</label>
-                        <input readonly type="date" name="fecha" id="fecha" class="form-control border-success" value="2024-11-10">
-                        <input type="hidden" name="fecha_hora" value="2024-11-10 22:55:31">
+                        <input readonly type="date" name="fecha" id="fecha" class="form-control border-success" value="<?php echo date("Y-m-d"); ?>" required>
                     </div>
 
                     <!-- Usuario -->
-                    <input type="hidden" name="vendedor_id" id="vendedor_id" value="<?php echo $_SESSION['id_sca']; ?>">
+                    <input type="hidden" name="vendedor_id" id="vendedor_id" value="<?php echo $_SESSION['id_usuario']; ?>">
 
                     <!-- Botón de guardar -->
                     <div class="col-12 mb-4 mt-2 text-center">
@@ -165,7 +156,6 @@
 <script>
     let detalles = [];
     let subtotal = 0;
-    const impuestoPorcentaje = 0.19;
 
     // Actualizar campos dinámicos al seleccionar un producto
     document.getElementById("producto_id").addEventListener("change", function() {
@@ -175,41 +165,33 @@
         document.getElementById("precio_venta").value = selectedOption.getAttribute("data-precio") || 0.00;
     });
 
-    // Habilitar/deshabilitar dirección de entrega según el tipo de venta
-    document.getElementById("tipo_venta").addEventListener("change", function() {
-        const direccionEntrega = document.getElementById("direccion_entrega");
-        if (this.value === "Presencial") {
-            direccionEntrega.value = "NO APLICA";
-            direccionEntrega.setAttribute("disabled", true);
-        } else {
-            direccionEntrega.value = "";
-            direccionEntrega.removeAttribute("disabled");
-        }
-    });
-
     // Agregar un producto a la tabla de detalles
     document.getElementById("btn_agregar").addEventListener("click", function() {
         const productoId = document.getElementById("producto_id").value;
         const stock = document.getElementById("stock").value;
         const cantidad = parseFloat(document.getElementById("cantidad").value);
         const precioVenta = parseFloat(document.getElementById("precio_venta").value);
-        const descuento = parseFloat(document.getElementById("descuento").value);
 
         if (productoId && cantidad > 0 && precioVenta > 0) {
             if (cantidad <= stock) {
                 const productoNombre = document.querySelector(`#producto_id option[value="${productoId}"]`).textContent;
-                const subtotalItem = cantidad * (precioVenta - descuento);
+                const subtotalItem = cantidad * (precioVenta);
 
                 detalles.push({
                     productoId,
                     productoNombre,
                     cantidad,
                     precioVenta,
-                    descuento,
                     subtotalItem
                 });
 
                 subtotal += subtotalItem;
+                document.getElementById("cantidad").value = 0; // Reiniciar cantidad
+                document.getElementById("producto_id").value = ""; // Reiniciar producto
+                document.getElementById("unidad").value = ""; // Reiniciar unidad
+                document.getElementById("stock").value = ""; // Reiniciar stock
+                document.getElementById("precio_venta").value = ""; // Reiniciar precio
+                document.getElementById("producto_id").dispatchEvent(new Event('change')); // Actualizar campos dinámicos
                 actualizarTabla();
             } else {
                 Swal.fire({
@@ -241,17 +223,12 @@
                 <td>${detalle.productoNombre}</td>
                 <td>${detalle.cantidad}</td>
                 <td>${detalle.precioVenta.toFixed(2)}</td>
-                <td>${detalle.descuento.toFixed(2)}</td>
                 <td>${detalle.subtotalItem.toFixed(2)}</td>
                 <td><button class="btn btn-danger btn-sm" onclick="eliminarDetalle(${index})">Eliminar</button></td>
             `;
         });
 
-        const impuesto = subtotal * impuestoPorcentaje;
-        const total = subtotal + impuesto;
-
-        document.getElementById("sumas").textContent = subtotal.toFixed(2);
-        document.getElementById("igv").textContent = impuesto.toFixed(2);
+        const total = subtotal;
         document.getElementById("total").textContent = total.toFixed(2);
         document.getElementById("inputTotal").value = subtotal.toFixed(2);
     }
@@ -267,9 +244,7 @@
 
         const vendedorId = document.getElementById("vendedor_id").value;
         const clienteId = document.getElementById("cliente_id").value;
-        const tipoVenta = document.getElementById("tipo_venta").value;
-        const direccionEntrega = document.getElementById("direccion_entrega").value;
-        const idComprobante = document.getElementById("comprobante_id").value;
+        const nombre = document.getElementById("nombre").value;
         const total = document.getElementById("inputTotal").value;
 
         if (detalles.length === 0) {
@@ -285,9 +260,7 @@
         // Llenar campos ocultos
         document.getElementById("vendedor_id_hidden").value = vendedorId;
         document.getElementById("cliente_id_hidden").value = clienteId;
-        document.getElementById("tipo_venta_hidden").value = tipoVenta;
-        document.getElementById("direccion_entrega_hidden").value = direccionEntrega;
-        document.getElementById("comprobante_id_hidden").value = idComprobante;
+        document.getElementById("nombre_hidden").value = nombre;
         document.getElementById("detalles_hidden").value = JSON.stringify(detalles);
         document.getElementById("total_hidden").value = total;
 

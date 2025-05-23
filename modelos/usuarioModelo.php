@@ -48,15 +48,18 @@
         //---------- Modelo para obtener todos los usuarios -------------//
         protected static function obtener_usuarios_modelo() {
 
-            $sql = mainModel::conectar()->prepare("SELECT * FROM usuario WHERE nit_negocio = :Nit_negocio AND rol = 'Vendedor';");
-
+            if ($_SESSION['rol'] == 'Vendedor') {
+                $sql = mainModel::conectar()->prepare("SELECT * FROM usuario WHERE nit_negocio = :Nit_negocio AND rol = 'Vendedor';");
+            } else {
+                $sql = mainModel::conectar()->prepare("SELECT * FROM usuario WHERE nit_negocio = :Nit_negocio;");
+            }
             $sql->bindParam(":Nit_negocio", $_SESSION['nit_negocio']);
         
             $sql->execute();
 
             return $sql->fetchAll(PDO::FETCH_OBJ);
         } // Fin 
-
+        
         //------------ Modelo para obtener cantidad de usuarios en BD -----------//
         protected static function obtener_cantidad_usuarios_modelo() {
 

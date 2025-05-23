@@ -11,8 +11,9 @@
         //---------- Controlador para finalizar una venta -----------------//
         public function finalizar_venta_controlador() {
             try {
+                session_start(['name' => 'VENTAGO']);
                 $cedula_cliente = $_POST['cliente_id'];
-                $nombre_cliente = $_POST['nombre_cliente'];
+                $nombre_cliente = $_POST['nombre'];
                 $nit_negocio = $_SESSION['nit_negocio'];
                 $cod_vendedor = $_POST['vendedor_id']; // Suponiendo que es el ID del vendedor logueado
                 $detalles = json_decode($_POST['detalles'], true);
@@ -71,8 +72,8 @@
                 $detalles = json_encode($detalles);
                 $alerta = [
                     "Alerta" => "limpiar",
-                    "Titulo" => "Compra registrada",
-                    "Texto" => "La compra fue registrada exitosamente.",
+                    "Titulo" => "Venta registrada",
+                    "Texto" => "La venta fue registrada exitosamente.",
                     "Tipo" => "success"
                 ];
                 echo json_encode($alerta);
@@ -112,8 +113,14 @@
             if (isset($filtros['fecha_hasta']) && $filtros['fecha_hasta'] != "") {
                 $where .= " AND DATE(venta.fecha_hora) <= '" . $filtros['fecha_hasta'] . "'";
             }
-            if (isset($filtros['vendedor']) && $filtros['vendedor'] != "") {
+            //verificar que el usaurio sea administrador
+            if ($_SESSION['rol_usuario'] == "Administrador") {
+                if (isset($filtros['vendedor']) && $filtros['vendedor'] != "") {
                 $where .= " AND usuario.nombre LIKE '%" . $filtros['vendedor'] . "%'";
+                }
+            } else {
+                // Si no es administrador, filtrar por el vendedor logueado
+                $where .= " AND usuario.nombre =  '" . $_SESSION['nombre_usuario'] . "'";
             }
             if (isset($filtros['total_desde']) && $filtros['total_desde'] != "") {
                 $where .= " AND (venta.total) >= " . (float)$filtros['total_desde'];
@@ -192,15 +199,11 @@
                             <td>' . $rows['nombre_cliente'] . '</td>
                             <td>' . $rows['fecha_hora'] . '</td>
                             <td>' . $rows['nombre_vendedor'] . '</td>
-                            <td>' . $rows['total_venta'] . '</td>
+                            <td>' . $rows['total'] . '</td>
                             <td>
-                            // cambiar el boton eliminar por ver detalles
-                                <form class="FormularioAjax d-inline-block" action="' . SERVER_URL . 'ajax/ventaAjax.php" method="POST" data-form="delete">
-                                    <input type="hidden" name="id_eliminar" value="' . $rows['id'] . '">
-                                    <button type="submit" class="btn btn-small btn-danger">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </form>
+                            <button type="button" class="btn btn-small btn-info btn-ver-detalles-venta" data-id-venta="' . $rows['id'] . '">
+                            <i class="fas fa-eye"></i> Ver Detalles
+                            </button>
                             </td>
                         </tr>';
                     $contador++;
@@ -222,8 +225,26 @@
         
         //-------- Controlador para ver detalle de venta -----------//
         public function ver_detalle_venta_controlador($id_venta) {
-            $datos = ventaModelo::ver_detalle_venta_modelo($id_venta);
-            return $datos;
+    
+                $datos_venta = ventaModelo::ver_detalle_venta_modelo($id_venta);
+    
+                if ($datos_venta && isset($datos_venta['factura']) && isset($datos_venta['detalles'])) {
+                    // Prepare data for JSON response
+                    $response = [
+                        'status' => 'success',
+                        'factura' => $datos_venta['factura'], // Contains provider name, date, total
+                        'detalles' => $datos_venta['detalles'] // Contains product details
+                    ];
+                } else {
+                    $response = [
+                        'status' => 'error',
+                        'message' => 'No se pudieron obtener los detalles de la venta.'
+                    ];
+                }
+                // Send JSON response
+                header('Content-Type: application/json');
+                echo json_encode($response);
+                exit(); // Stop script execution after sending JSON
         } //Fin
 
         //---------- Controlador para obtener ventas -------------//
