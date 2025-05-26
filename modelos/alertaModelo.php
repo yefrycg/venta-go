@@ -59,6 +59,18 @@
 
             return $sql->fetch(PDO::FETCH_OBJ);
         } // fin
+        //----------- obtener alertas productos -----------//
+        protected static function obtener_alertas_productos_modelo() {
+            $sql = mainModel::conectar()->prepare("SELECT producto.id AS id, producto.nombre AS nombre 
+            FROM `producto` INNER JOIN alerta ON producto.unidad = alerta.unidad 
+            WHERE producto.stock_actual < alerta.valor AND alerta.nit_negocio = :Nit_negocio;");
+
+            $sql->bindParam(":Nit_negocio", $_SESSION['nit_negocio']);
+            
+            $sql->execute();
+
+            return $sql->fetch(PDO::FETCH_OBJ);
+        }
 
         //------------ Modelo para actualizar alerta -----------//
         protected static function actualizar_alerta_modelo($datos) {

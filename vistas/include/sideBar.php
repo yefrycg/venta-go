@@ -136,6 +136,22 @@
             </div>
         </div>
     </li>
+
+    <!-- alertas collapse Menu-->
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAlertas"
+            aria-expanded="true" aria-controls="collapseAlertas">
+            <i class="fas fa-fw fa-bell"></i>
+            <span>Alertas</span>
+        </a>
+        <div id="collapseAlertas" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Acciones:</h6>
+                <a class="collapse-item" href="<?= SERVER_URL; ?>alerta-config/">Añadir Alerta</a>
+                <a class="collapse-item" href="<?= SERVER_URL; ?>alerta/">Ver Alertas</a>
+            </div>
+        </div>
+
     <?php } ?>
     
     <!-- Divider -->
