@@ -9,7 +9,7 @@
     <!-- Filtro de Reportes -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Búsqueda de Reportes</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Filtro de Reportes</h6>
         </div>
 
         <div class="card-body">
@@ -69,20 +69,29 @@
                             <label for="tipo_reporte">Tipo de reporte:</label>
                             <select name="tipo_reporte" id="tipo_reporte" class="form-control" required>
                                 <option value="" selected>Seleccione</option>
-                                <option value="Ventas totales" <?php echo (isset($_POST['tipo_reporte']) && $_POST['tipo_reporte'] == 'Ventas totales') ? 'selected' : ''; ?> >Ventas totales</option>
-                                <option value="Compras totales" <?php echo (isset($_POST['tipo_reporte']) && $_POST['tipo_reporte'] == 'Compras totales') ? 'selected' : ''; ?>
+                                <option value="Ventas totales"
+                                <?php echo (isset($_POST['tipo_reporte']) && $_POST['tipo_reporte'] == 'Ventas totales') ? 'selected' : '';?>
+                                >Ventas totales</option>
+                                <option value="Compras totales"
+                                <?php echo (isset($_POST['tipo_reporte']) && $_POST['tipo_reporte'] == 'Compras totales') ? 'selected' : ''; ?>
                                 >Compras totales</option>
-                                <option value="Utilidades totales" <?php echo (isset($_POST['tipo_reporte']) && $_POST['tipo_reporte'] == 'Utilidades totales') ? 'selected' : ''; ?>
+                                <option value="Utilidades totales"
+                                <?php echo (isset($_POST['tipo_reporte']) && $_POST['tipo_reporte'] == 'Utilidades totales') ? 'selected' : ''; ?>
                                 >Utilidades totales</option>
-                                <option value="Productos Más Vendidos" <?php echo (isset($_POST['tipo_reporte']) && $_POST['tipo_reporte'] == 'Productos Más Vendidos') ? 'selected' : ''; ?>
+                                <option value="Productos Más Vendidos" 
+                                <?php echo (isset($_POST['tipo_reporte']) && $_POST['tipo_reporte'] == 'Productos Más Vendidos') ? 'selected' : ''; ?>
                                 >Productos Más Vendidos</option>
-                                <option value="Produtos Menos Vendidos" <?php echo (isset($_POST['tipo_reporte']) && $_POST['tipo_reporte'] == 'Produtos Menos Vendidos') ? 'selected' : ''; ?>
+                                <option value="Produtos Menos Vendidos"
+                                <?php echo (isset($_POST['tipo_reporte']) && $_POST['tipo_reporte'] == 'Produtos Menos Vendidos') ? 'selected' : ''; ?>
                                 >Produtos Menos Vendidos</option>
-                                <option value="Productos Más comprados" <?php echo (isset($_POST['tipo_reporte']) && $_POST['tipo_reporte'] == 'Productos Más comprados') ? 'selected' : ''; ?>
+                                <option value="Productos Más comprados"
+                                <?php echo (isset($_POST['tipo_reporte']) && $_POST['tipo_reporte'] == 'Productos Más comprados') ? 'selected' : ''; ?>
                                 >Productos Más comprados</option>
-                                <option value="Productos Menos Comprados" <?php echo (isset($_POST['tipo_reporte']) && $_POST['tipo_reporte'] == 'Productos Menos Comprados') ? 'selected' : ''; ?>
+                                <option value="Productos Menos Comprados"
+                                <?php echo (isset($_POST['tipo_reporte']) && $_POST['tipo_reporte'] == 'Productos Menos Comprados') ? 'selected' : ''; ?>
                                 >Productos Menos Comprados</option>
-                                <option value="Ventas por vendedor" <?php echo (isset($_POST['tipo_reporte']) && $_POST['tipo_reporte'] == 'Ventas por vendedor') ? 'selected' : ''; ?>
+                                <option value="Ventas por vendedor"
+                                <?php echo (isset($_POST['tipo_reporte']) && $_POST['tipo_reporte'] == 'Ventas por vendedor') ? 'selected' : ''; ?>
                                 >Ventas por vendedor</option>
                             </select>
                         </div>
@@ -101,7 +110,7 @@
     <!-- Tabla de Reportes -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Listado de Reportes</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Listado de Reporte</h6>
         </div>
         
         <div class="card-body">
@@ -122,4 +131,3 @@
     </div>
 
 </div>
-<!-- /.container-fluid -->

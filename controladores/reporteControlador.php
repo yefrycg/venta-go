@@ -82,14 +82,90 @@ class reporteControlador extends mainModel {
                 break;
 
             case "Utilidades totales":
-                $column_headers = ["Fecha", "Utilidad Total ($)"];
-                // Assuming 'venta' and 'compra' tables have a 'total' column
-                $select_sql_parts = ["DATE_FORMAT(v.fecha_hora, '%Y-%m-%d') as fecha_venta", "SUM(v.total - c.total) as utilidad_total"];
-                $from_join_sql = "FROM venta v INNER JOIN compra c ON v.id_compra = c.id INNER JOIN negocio ON v.nit_negocio = negocio.nit";
-                $date_column_for_filter = "v.fecha_hora";
-                $group_by_sql = "GROUP BY DATE(v.fecha_hora)";
-                $order_by_sql = "ORDER BY DATE(v.fecha_hora) DESC";
-                break;
+                $column_headers = ["Total Ventas Periodo ($)", "Total Compras Periodo ($)", "Utilidad Neta Periodo ($)"];
+                
+                $total_ventas_periodo = 0;
+                $total_compras_periodo = 0;
+                $conexion = mainModel::conectar(); // Ensure connection is available
+
+                // --- Query for Total Sales in Period ---
+                $sales_query_params = [$nit_negocio_actual]; // Start with NIT
+                $sales_where_conditions = ["negocio.nit = ?"]; // Filter by business NIT
+                
+                // Get date conditions for sales, using 'v.fecha_hora'
+                $sales_date_conditions_sql_array = $this->getDateConditions("v.fecha_hora", $filtros, $sales_query_params);
+                if (!empty($sales_date_conditions_sql_array)) {
+                    $sales_where_conditions = array_merge($sales_where_conditions, $sales_date_conditions_sql_array);
+                }
+                $sales_where_sql = "WHERE " . implode(" AND ", $sales_where_conditions);
+                
+                $sql_total_ventas = "SELECT COALESCE(SUM(v.total), 0) AS total_ventas 
+                                     FROM venta v 
+                                     INNER JOIN negocio ON v.nit_negocio = negocio.nit 
+                                     {$sales_where_sql}";
+                
+                try {
+                    $stmt_ventas = $conexion->prepare($sql_total_ventas);
+                    $stmt_ventas->execute($sales_query_params);
+                    $total_ventas_periodo = (float) $stmt_ventas->fetchColumn();
+                } catch (PDOException $e) {
+                    $tabla .= '<div class="alert alert-danger">Error calculando ventas totales del periodo: ' . htmlspecialchars($e->getMessage()) . '</div>';
+                    // Optionally log the error: error_log("Error ventas totales periodo: " . $e->getMessage() . " SQL: " . $sql_total_ventas . " Params: " . json_encode($sales_query_params));
+                }
+
+                // --- Query for Total Purchases in Period ---
+                $purchases_query_params = [$nit_negocio_actual]; // Start with NIT
+                $purchases_where_conditions = ["negocio.nit = ?"]; // Filter by business NIT
+
+                // Get date conditions for purchases, using 'c.fecha_hora'
+                $purchases_date_conditions_sql_array = $this->getDateConditions("c.fecha_hora", $filtros, $purchases_query_params);
+                if (!empty($purchases_date_conditions_sql_array)) {
+                    $purchases_where_conditions = array_merge($purchases_where_conditions, $purchases_date_conditions_sql_array);
+                }
+                $purchases_where_sql = "WHERE " . implode(" AND ", $purchases_where_conditions);
+
+                $sql_total_compras = "SELECT COALESCE(SUM(c.total), 0) AS total_compras 
+                                      FROM compra c 
+                                      INNER JOIN negocio ON c.nit_negocio = negocio.nit 
+                                      {$purchases_where_sql}";
+
+                try {
+                    $stmt_compras = $conexion->prepare($sql_total_compras);
+                    $stmt_compras->execute($purchases_query_params);
+                    $total_compras_periodo = (float) $stmt_compras->fetchColumn();
+                } catch (PDOException $e) {
+                    $tabla .= '<div class="alert alert-danger">Error calculando compras totales del periodo: ' . htmlspecialchars($e->getMessage()) . '</div>';
+                    // Optionally log the error: error_log("Error compras totales periodo: " . $e->getMessage() . " SQL: " . $sql_total_compras . " Params: " . json_encode($purchases_query_params));
+                }
+
+                $utilidad_neta_total = $total_ventas_periodo - $total_compras_periodo;
+
+                // Build the table HTML directly for this summary report
+                $tabla .= '
+                <div class="table-responsive mb-2">
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>';
+                foreach ($column_headers as $header) {
+                    $tabla .= '<th scope="col">' . htmlspecialchars($header) . '</th>';
+                }
+                $tabla .= '
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>$' . number_format($total_ventas_periodo, 2) . '</td>
+                                <td>$' . number_format($total_compras_periodo, 2) . '</td>
+                                <td>$' . number_format($utilidad_neta_total, 2) . '</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p class="text-left">Mostrando resumen del periodo seleccionado.</p>';
+                
+                // Return early as this report type has a special structure and no pagination.
+                return $tabla; 
+                // The 'break;' is effectively handled by the 'return;'
             
             case "Productos Más Vendidos":
                 $column_headers = ["Código Producto", "Nombre Producto", "Cantidad Vendida", "Total Vendido ($)"];

@@ -151,7 +151,7 @@
                 <a class="collapse-item" href="<?= SERVER_URL; ?>alerta/">Ver Alertas</a>
             </div>
         </div>
-
+    </li>
     <?php } ?>
     
     <!-- Divider -->

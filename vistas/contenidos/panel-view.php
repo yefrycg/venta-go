@@ -61,11 +61,11 @@
             </a>
         </div>
 
-        <?php 
-        if ($_SESSION['rol_usuario'] == "Administrador") {
-            require_once "./controladores/categoriaControlador.php";
-            $ins_categoria = new categoriaControlador();
-            $total_categorias = $ins_categoria->obtener_cantidad_categorias_controlador();
+        <?php        
+            if ($_SESSION['rol_usuario'] == "Administrador") {
+                require_once "./controladores/categoriaControlador.php";
+                $ins_categoria = new categoriaControlador();
+                $total_categorias = $ins_categoria->obtener_cantidad_categorias_controlador();
         ?>
         <!-- Tarjeta Categorias -->
         <div class="col-xl-3 col-md-6 mb-4">
@@ -88,10 +88,11 @@
         </div>
         <?php } ?>
 
-        <?php if ($_SESSION['rol_usuario'] == "Administrador") { 
-            require_once "./controladores/productoControlador.php";
-            $ins_producto = new productoControlador();
-            $total_productos = $ins_producto->obtener_cantidad_productos_controlador();
+        <?php 
+            if ($_SESSION['rol_usuario'] == "Administrador") { 
+                require_once "./controladores/productoControlador.php";
+                $ins_producto = new productoControlador();
+                $total_productos = $ins_producto->obtener_cantidad_productos_controlador();
         ?>
         <!-- Tarjeta Productos -->
         <div class="col-xl-3 col-md-6 mb-4">
@@ -114,10 +115,11 @@
         </div>
         <?php } ?>
 
-        <?php if ($_SESSION['rol_usuario'] == "Administrador") {
-            require_once "./controladores/proveedorControlador.php";
-            $ins_proveedor = new proveedorControlador();
-            $total_proveedores = $ins_proveedor->obtener_cantidad_proveedores_controlador();
+        <?php 
+            if ($_SESSION['rol_usuario'] == "Administrador") {
+                require_once "./controladores/proveedorControlador.php";
+                $ins_proveedor = new proveedorControlador();
+                $total_proveedores = $ins_proveedor->obtener_cantidad_proveedores_controlador();
         ?>
         <!-- Tarjeta Proveedores -->
         <div class="col-xl-3 col-md-6 mb-4">
@@ -140,10 +142,11 @@
         </div>
         <?php } ?>
 
-        <?php if ($_SESSION['rol_usuario'] == "Administrador") {
-            require_once "./controladores/usuarioControlador.php";
-            $ins_usuario = new usuarioControlador();
-            $total_usuarios = $ins_usuario->obtener_cantidad_usuarios_controlador();
+        <?php 
+            if ($_SESSION['rol_usuario'] == "Administrador") {
+                require_once "./controladores/usuarioControlador.php";
+                $ins_usuario = new usuarioControlador();
+                $total_usuarios = $ins_usuario->obtener_cantidad_usuarios_controlador();
         ?>
         <!-- Tarjeta Usuarios -->
         <div class="col-xl-3 col-md-6 mb-4">
@@ -164,6 +167,26 @@
                 </div>
             </a>
         </div>
+
+        <!-- Tarjeta Reportes -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <a href="<?php echo SERVER_URL; ?>reportes/" style="text-decoration: none;">
+                <div class="card border-left-secondary shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-secondary text-uppercase mb-1">
+                                    Reportes</div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-chart-bar fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+
         <!-- Tarjeta Alertas -->
         <div class="col-xl-3 col-md-6 mb-4">
             <a href="<?php echo SERVER_URL; ?>alerta/" style="text-decoration: none;">
