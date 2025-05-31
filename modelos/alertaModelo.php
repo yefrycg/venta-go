@@ -31,10 +31,6 @@
             return $sql;
         } // fin
 
-        // SELECT producto.nombre,producto.stock_actual FROM `producto` INNER JOIN alerta ON producto.unidad = alerta.unidad WHERE producto.stock_actual < alerta.valor;
-        // SELECT COUNT(producto.nombre) AS 'numero de alertas' FROM `producto` INNER JOIN alerta ON producto.unidad = alerta.unidad WHERE producto.stock_actual < alerta.valor;
-
-        //---------- Modelo para obtener todas las alertas -------------//
         protected static function obtener_alertas_modelo() {
 
             $sql = mainModel::conectar()->prepare("SELECT * FROM alerta WHERE nit_negocio = :Nit_negocio;");
@@ -46,10 +42,9 @@
             return $sql->fetchAll(PDO::FETCH_OBJ);
         } // fin
 
-        //---------- Modelo para contar la cantidad de alertas -------------//
         protected static function contar_alertas_modelo() {
 
-            $sql = mainModel::conectar()->prepare("SELECT COUNT(producto.nombre) AS 'numero de alertas' 
+            $sql = mainModel::conectar()->prepare("SELECT COUNT(producto.id) AS Cantidad 
             FROM `producto` INNER JOIN alerta ON producto.unidad = alerta.unidad 
             WHERE producto.stock_actual < alerta.valor AND alerta.nit_negocio = :Nit_negocio;");
 
@@ -59,6 +54,7 @@
 
             return $sql->fetch(PDO::FETCH_OBJ);
         } // fin
+
         //----------- obtener alertas productos -----------//
         protected static function obtener_alertas_productos_modelo() {
             $sql = mainModel::conectar()->prepare("SELECT producto.id AS id, producto.nombre AS nombre 
@@ -69,7 +65,7 @@
             
             $sql->execute();
 
-            return $sql->fetch(PDO::FETCH_OBJ);
+            return $sql->fetchAll(PDO::FETCH_OBJ);
         }
 
         //------------ Modelo para actualizar alerta -----------//
@@ -79,11 +75,23 @@
             valor = :Valor
             WHERE id = :Id");
 
-            $sql->bindParam(":Id", $datos['id']);
-            $sql->bindParam(":valor", $datos['valor']);
+            $sql->bindParam(":Id", $datos['Id']);
+            $sql->bindParam(":Valor", $datos['Valor']);
 
             $sql->execute();
             
             return $sql;
         } // fin revisar comentarios
-    }     //OK
+
+        //---------- Modelo para eliminar alerta -------------//
+        protected static function eliminar_alerta_modelo($id) {
+
+            $sql = mainModel::conectar()->prepare("DELETE FROM alerta WHERE id = :Id;");
+
+            $sql->bindParam(":Id", $id);
+
+            $sql->execute();
+
+            return $sql;
+        } // fin
+    }

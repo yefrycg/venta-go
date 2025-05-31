@@ -14,11 +14,21 @@
     <div class="d-flex align-items-center mb-4">
         <h1 class="h3 text-gray-800 mr-3">Alertas de Stock</h1>
     </div>
-                           
+    
+    <!-- Boton registro de alertas -->
+    <div class="mb-4">
+        <a href="<?= SERVER_URL; ?>alerta-new/" class="btn btn-primary btn-icon-split">
+            <span class="icon text-white-50">
+                <i class="fas fa-plus"></i>
+            </span>
+            <span class="text">Registrar Alerta</span>
+        </a>
+    </div>
+
     <!-- Tabla de  alertas -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Listado de Productos con alerta</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Listado de alertas</h6>
         </div>
         
         <div class="card-body">

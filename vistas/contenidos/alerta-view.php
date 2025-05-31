@@ -22,7 +22,7 @@
         </div>
 
         <div class="card-body">
-            <form id="filtroalertas" method="POST" action="<?php echo SERVER_URL; ?>alertas/">
+            <form id="filtroAlertas" method="POST" action="<?php echo SERVER_URL; ?>alerta/">
                 <div class="row">
 
                     <!-- Id -->
@@ -76,8 +76,8 @@
                     <!-- Ordenar por:(0-9, 9-0) -->
                     <div class="col-md-2">
                         <div class="form-group">
-                            <label for="filtro_orden">Ordenar alertas de:</label>
-                            <select class="form-control" id="filtro_orden" name="orden">
+                            <label for="orden">Ordenar alertas de:</label>
+                            <select class="form-control" id="orden" name="orden">
                                 <option value="">Seleccione</option>
                                 <option value="ASC" <?php echo (isset($_POST['orden']) && $_POST['orden'] == 'ASC') ? 'selected' : ''; ?> >1-9</option>
                                 <option value="DESC" <?php echo (isset($_POST['orden']) && $_POST['orden'] == 'DESC') ? 'selected' : ''; ?> >9-1</option>
@@ -88,7 +88,7 @@
                     <!-- Botones -> Buscar | Reestablecer -->
                     <div class="col-md-3 d-flex align-items-center">
                         <button type="submit" class="btn btn-primary mr-2">Buscar</button>
-                        <a href="<?php echo SERVER_URL; ?>alertas/" class="btn btn-secondary">Restablecer</a>
+                        <a href="<?php echo SERVER_URL; ?>alerta/" class="btn btn-secondary">Restablecer</a>
                     </div>
                 </div>
             </form>

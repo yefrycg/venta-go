@@ -167,7 +167,12 @@
                 </div>
             </a>
         </div>
+        <?php } ?>
 
+        
+        <?php 
+            if ($_SESSION['rol_usuario'] == "Administrador") {
+        ?>
         <!-- Tarjeta Reportes -->
         <div class="col-xl-3 col-md-6 mb-4">
             <a href="<?php echo SERVER_URL; ?>reportes/" style="text-decoration: none;">
@@ -186,7 +191,13 @@
                 </div>
             </a>
         </div>
+        <?php } ?>
 
+        <?php if ($_SESSION['rol_usuario'] == "Administrador") {
+                require_once "./controladores/alertaControlador.php";
+                $ins_alerta = new alertaControlador();
+                $total_alertas = $ins_alerta->contar_alertas_controlador();
+        ?>
         <!-- Tarjeta Alertas -->
         <div class="col-xl-3 col-md-6 mb-4">
             <a href="<?php echo SERVER_URL; ?>alerta/" style="text-decoration: none;">
@@ -196,7 +207,7 @@
                             <div class="col mr-2">
                                 <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
                                     Alertas</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">0</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $total_alertas->Cantidad ?></div>
                             </div>
                             <div class="col-auto">
                                 <i class="fas fa-exclamation-triangle fa-2x text-gray-300"></i>

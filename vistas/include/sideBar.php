@@ -147,7 +147,7 @@
         <div id="collapseAlertas" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Acciones:</h6>
-                <a class="collapse-item" href="<?= SERVER_URL; ?>alerta-config/">Añadir Alerta</a>
+                <a class="collapse-item" href="<?= SERVER_URL; ?>alerta-config/">Configurar Alertas</a>
                 <a class="collapse-item" href="<?= SERVER_URL; ?>alerta/">Ver Alertas</a>
             </div>
         </div>
